@@ -77,12 +77,31 @@ class IP66Spider(BaseSpider):
         return response.content.decode("GBK")
 
 
+class IP89Spider(BaseSpider):
+    urls = ['http://www.89ip.cn/index_{}.html'.format(i) for i in range(1, 8)]
+
+    group_xpath = '//table[@class="layui-table"]/tbody/tr'
+
+    detail_xpath = {
+        'ip': './td[1]/text()',
+        'port': './td[2]/text()',
+        'area': './td[3]/text()',
+    }
+
+    def get_page_from_url(self, url):
+        response = requests.get(url, headers=get_request_headers())
+        return response.content.decode()
+
 if __name__ == '__main__':
     # spider = XiCiSpider()
     # spider = Ip3366Spider()
     # spider = KDLSpider()
     # spider = ProxyListPlusSpider()
-    pass
+    spider = IP89Spider()
+
+    for proxy in spider.get_proxies():
+        print(proxy)
+
 
     # r = requests.get('http://www.66ip.cn/1.html')
     # print(r.content.decode("GBK"))

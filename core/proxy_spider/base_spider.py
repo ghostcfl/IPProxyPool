@@ -46,9 +46,9 @@ class BaseSpider(object):
         element = etree.HTML(page)
         trs = element.xpath(self.group_xpath)
         for tr in trs:
-            ip = self.get_first_from_list(tr.xpath(self.detail_xpath['ip']))
-            port = self.get_first_from_list(tr.xpath(self.detail_xpath['port']))
-            area = self.get_first_from_list(tr.xpath(self.detail_xpath['area']))
+            ip = self.get_first_from_list(tr.xpath(self.detail_xpath['ip'])).strip()
+            port = self.get_first_from_list(tr.xpath(self.detail_xpath['port'])).strip()
+            area = self.get_first_from_list(tr.xpath(self.detail_xpath['area'])).strip()
             if ip and port:
                 proxy = Proxy(ip, port, area=area)
                 yield proxy

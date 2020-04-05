@@ -46,7 +46,7 @@ class ProxyTester(object):
         pt = ProxyTester()
         pt.run()
 
-        schedule.every(TEST_PROXIES_INTERVAL).hours.do(pt.run)
+        schedule.every(TEST_PROXIES_INTERVAL).minutes.do(pt.run)
         while 1:
             schedule.run_pending()
             time.sleep(1)
